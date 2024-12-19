@@ -47,25 +47,15 @@ os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 
 # Procesamiento del archivo PDF
 file = st.file_uploader("Carga un fichero PDF", type="pdf") # Para la subida del pdf
+source_data_folder = "./ficheros"
+
 if file:
-    with open("./ficheros/PDF.pdf", "wb") as f:
+    with open(source_data_folder + "/PDF.pdf", "wb") as f:
         f.write(file.getvalue())
 
 # Leer el archivo PDF 
-loader = PyPDFDirectoryLoader("./Misdatos")
+loader = PyPDFDirectoryLoader(source_data_folder)
 data_on_pdf = loader.load() 
-
-# splits = []
-# if file:
-#     # Leer el archivo PDF    
-#     pdf_reader = PyPDF2.PdfReader(file)
-#     # Extraer el contenido del PDF
-#     content = ""
-#     for page in pdf_reader.pages:  # Iterar directamente sobre las páginas
-#         content += page.extract_text()  # Usar el método correcto extract_text()
-
-#     # Convertir el texto extraído en una lista de objetos Document
-#     documents = [Document(page_content=content)]
 
 # División del texto. Con un tamaño delimitado (chunks) y 
 # 200 caracters de overlapping para preservar el contexto
@@ -75,6 +65,7 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=200
 )
 splits = text_splitter.split_documents(data_on_pdf)
+print("-------------------------", splits)
 
 # Crea la instancia de embeddings con Cohere
 # embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Ordi")  
