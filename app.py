@@ -64,7 +64,7 @@ from langchain.embeddings import CohereEmbeddings
 
 # Crea la instancia de embeddings con Cohere
 # embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Fran")
-embeddings_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ["JUAN"])
+embeddings_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ["GOOGLE_API_KEY"])
 path_db = "./content/VectorDB"  # Ruta a la base de datos del vector store
 
 # Crear el vector store a partir de tus documentos 'splits'
