@@ -1,0 +1,13 @@
+langchain
+google-generativeai 
+langchain-google-genai
+chromadb 
+pypdf2 
+python-dotenv
+PyPDF
+langchain-community
+sentence-transformers
+langchainhub
+ipywidgets
+cohere
+streamlit
