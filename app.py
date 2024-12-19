@@ -33,7 +33,7 @@ st.set_page_config(
 st.title("RAG LANGCHAIN GEMINI App")
 
 file = st.file_uploader("Upload a PDF file", accept_multiple_files=False, type="pdf")
-source_data_folder = "./content/MisDatos"
+source_data_folder = "./ficheros"
 if file:
     with open(source_data_folder+"/pdf.pdf", 'wb') as f: 
         # f.write(file)
@@ -64,7 +64,9 @@ from langchain.embeddings import CohereEmbeddings
 
 # Crea la instancia de embeddings con Cohere
 # embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Fran")
-embeddings_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ["GOOGLE_API_KEY"])
+embeddings_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001", 
+                                                google_api_key=os.environ["GOOGLE_API_KEY"])
+
 path_db = "./content/VectorDB"  # Ruta a la base de datos del vector store
 
 # Crear el vector store a partir de tus documentos 'splits'
@@ -75,7 +77,7 @@ vectorstore = Chroma.from_documents(
 )
 
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", 
-                             google_api_key=os.environ["JUAN"])
+                             google_api_key=os.environ["GOOGLE_API_KEY"])
 
 
 retriever = vectorstore.as_retriever()
