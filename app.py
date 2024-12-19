@@ -14,6 +14,7 @@ from langchain import hub
 from langchain_core.output_parsers import StrOutputParser 
 from langchain_core.runnables import RunnablePassthrough 
 from langchain_google_genai import ChatGoogleGenerativeAI 
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.schema import Document
 
 import streamlit as st
@@ -48,7 +49,7 @@ os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 file = st.file_uploader("Carga un fichero PDF", type="pdf") # Para la subida del pdf
 if file:
     with open("./ficheros/PDF.pdf", "wb") as f:
-        f.write(file.getvalue)
+        f.write(file.getvalue())
 
 # Leer el archivo PDF 
 loader = PyPDFDirectoryLoader("./Misdatos")
@@ -76,9 +77,8 @@ text_splitter = RecursiveCharacterTextSplitter(
 splits = text_splitter.split_documents(data_on_pdf)
 
 # Crea la instancia de embeddings con Cohere
-embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Ordi")  
-# embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Ordi") 
-
+# embeddings_model = CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"], user_agent="Ordi")  
+embeddings_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ["GOOGLE_API_KEY"])
 path_db = "./content/VectorDB"  # Ruta a la base de datos del vector store
 
 # Crear el vector store a partir de tus documentos 'splits'
