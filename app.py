@@ -47,7 +47,7 @@ os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 # Procesamiento del archivo PDF
 file = st.file_uploader("Carga un fichero PDF", type="pdf") # Para la subida del pdf
 if file:
-    with open("./Misdatos/PDF.pdf", "wb") as f:
+    with open("./ficheros/PDF.pdf", "wb") as f:
         f.write(file.getvalue)
 
 # Leer el archivo PDF 
